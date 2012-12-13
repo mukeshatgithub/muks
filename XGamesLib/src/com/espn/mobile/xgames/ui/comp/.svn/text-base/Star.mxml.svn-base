@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 click="toggleState(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			private var _upImgSrc:String;
+
+			/**
+			 * up image source  
+			 */
+			public function set upImgSrc(value:String):void
+			{
+				_upImgSrc = value;
+				upImg.source = _upImgSrc;
+			}
+			
+			private var _downImgSrc:String;
+			
+			/**
+			 * down image source  
+			 */
+			public function set downImgSrc(value:String):void
+			{
+				_downImgSrc = value;
+				downImg.source = _downImgSrc;
+			}
+			
+			private var _selected:Boolean = false;
+
+			[Bindable]
+			public function get selected():Boolean
+			{
+				return _selected;
+			}
+
+			/**
+			 * selected  
+			 */
+			public function set selected(value:Boolean):void
+			{
+				_selected = value;
+				//upImg.visible = !_selected;
+				//downImg.visible = _selected;
+			}
+			
+			
+			private function toggleState(event:MouseEvent):void
+			{
+				selected = !_selected;
+			}
+			
+			private var _isFav:Boolean = false;
+
+			[Bindable]
+			public function get isFav():Boolean
+			{
+				return _isFav;
+			}
+
+			public function set isFav(value:Boolean):void
+			{
+				_isFav = value;
+			}
+
+			
+			/**
+			 * column index where the star is used 
+			 */
+			public var colIndex:int;
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<!--<s:BitmapImage id="upImg" visible="{!selected}"/>
+	
+	<s:BitmapImage id="downImg" visible="{selected}"/>-->
+	
+	<s:BitmapImage id="upImg" visible="{!isFav}"/>
+	
+	<s:BitmapImage id="downImg" visible="{isFav}"/>
+		
+</s:Group>

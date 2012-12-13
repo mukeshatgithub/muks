@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/scm/XGames/!svn/ver/5438/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/ui/managers
+END
+StyleablePopUpManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/scm/XGames/!svn/ver/5438/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/ui/managers/StyleablePopUpManager.as
+END
+MobileStyleablePopUpManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/scm/XGames/!svn/ver/5347/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/ui/managers/MobileStyleablePopUpManager.as
+END
+ErrorManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/scm/XGames/!svn/ver/5347/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/ui/managers/ErrorManager.as
+END

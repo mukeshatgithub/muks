@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/scm/XGames/!svn/ver/5542/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/service
+END
+LazyLoadingService.as
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/scm/XGames/!svn/ver/5374/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/service/LazyLoadingService.as
+END
+CasterClient.as
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/scm/XGames/!svn/ver/5438/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/service/CasterClient.as
+END
+BaseService.as
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/scm/XGames/!svn/ver/5374/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/service/BaseService.as
+END
+XAlertService.as
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/scm/XGames/!svn/ver/5542/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/service/XAlertService.as
+END

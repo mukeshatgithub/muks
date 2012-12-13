@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="init(event)" 
+		 xmlns:ui="com.espn.mobile.ui.*" 
+		 xmlns:comp="com.espn.mobile.xgames.ui.comp.*">
+	<fx:Script>
+		<![CDATA[
+			import com.espn.mobile.xgames.events.AppErrorEvent;
+			
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			private var scaleFactor:Number = 1;
+			
+			[Bindable]
+			public var message:String;
+			
+			[Bindable]
+			public var showContinueBtn:Boolean = true;
+			
+			public var dispatchRetryEvent:Boolean = false;
+			
+			public var popUpWidth:Number ;
+			public var popUpheight:Number ;
+			public var btnContainerWidth:Number;
+			public var btnContainerHeight:Number;
+			public var btnContainerBottom:Number;
+			
+			protected function init(event:FlexEvent):void
+			{
+				scaleFactor = getStyle('scaleFactor'); 
+				width = popUpWidth * scaleFactor;
+				height = popUpheight * scaleFactor; 
+				btnContainer.width = btnContainerWidth * scaleFactor;
+				btnContainer.height = btnContainerHeight * scaleFactor;
+				btnContainer.bottom = btnContainerBottom * scaleFactor;
+			}
+			
+			protected function onButtonClickHandler(event:MouseEvent):void
+			{
+				if (dispatchRetryEvent) 
+					this.dispatchEvent(new AppErrorEvent(AppErrorEvent.RETRY_CALLBACK, null));
+				
+				dispatchEvent(new AppErrorEvent(AppErrorEvent.ERROR_CLOSED, null));
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Rect width="100%" height="100%" radiusX="{10*scaleFactor}" radiusY="{10*scaleFactor}" alpha="0.7">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x848484"/> 
+				<s:GradientEntry color="0x5d5d5d"/> 
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Rect width="100%" height="100%" radiusX="{10*scaleFactor}" radiusY="{10*scaleFactor}" 
+			top="{8*scaleFactor}"  left="{8*scaleFactor}"  right="{8*scaleFactor}" bottom="{8*scaleFactor}">
+		<s:fill>
+			<s:BitmapFill fillMode="repeat" source="{getStyle('backgroundImage')}"/>
+		</s:fill>
+	</s:Rect>
+	
+	
+	<s:HGroup width="100%" height="90%" verticalAlign="middle" 
+			  paddingLeft="{20*scaleFactor}" paddingBottom="{20*scaleFactor}" paddingRight="{20*scaleFactor}" paddingTop="{20*scaleFactor}"
+			  gap="{10*scaleFactor}">
+		<s:BitmapImage id="errorIcon" verticalCenter="0" left="{20*scaleFactor}">
+			<s:source>
+				<s:MultiDPIBitmapSource source160dpi="{getStyle('errorIcon')}" source240dpi="{getStyle('errorIcon')}"/>
+			</s:source>
+		</s:BitmapImage>
+		<s:Label id="errorMessage" text="{message}" width="80%"/>
+	</s:HGroup>
+	
+	
+	<s:Group id="btnContainer" horizontalCenter="0" visible="{showContinueBtn}" click="onButtonClickHandler(event)">
+		<s:Rect width="100%" height="100%" radiusX="{5*scaleFactor}" radiusY="{5*scaleFactor}">
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="0x848484"/> 
+					<s:GradientEntry color="0x5d5d5d"/> 
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		<s:Label id="button" horizontalCenter="0" verticalCenter="2" color="0x2e2e2e"/>
+	</s:Group>
+	
+	
+	
+</s:Group>

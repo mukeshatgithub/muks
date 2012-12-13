@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/scm/XGames/!svn/ver/5385/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs
+END
+MobileLib.swc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/scm/XGames/!svn/ver/2638/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs/MobileLib.swc
+END
+as3corelib.swc
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/scm/XGames/!svn/ver/5107/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs/as3corelib.swc
+END
+greensock.swc
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/scm/XGames/!svn/ver/5385/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs/greensock.swc
+END
+mobilecomponents.swc
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/scm/XGames/!svn/ver/1893/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs/mobilecomponents.swc
+END
+AppMeasurementServices.swc
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/scm/XGames/!svn/ver/4974/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs/AppMeasurementServices.swc
+END
+AppMeasurement.swc
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/scm/XGames/!svn/ver/4974/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/libs/AppMeasurement.swc
+END

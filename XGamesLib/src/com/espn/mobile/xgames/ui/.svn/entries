@@ -1,0 +1,40 @@
+10
+
+dir
+5550
+https://mia.sapient.resultspace.com/scm/XGames/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/ui
+https://mia.sapient.resultspace.com/scm/XGames
+
+
+
+2012-12-13T07:18:52.718793Z
+5534
+musharm
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+d56a3af8-c092-443f-9987-f536df04eac3
+
+comp
+dir
+
+containers
+dir
+
+managers
+dir
+
+skins
+dir
+

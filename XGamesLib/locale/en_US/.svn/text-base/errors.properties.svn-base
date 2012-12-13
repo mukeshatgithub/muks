@@ -1,0 +1,15 @@
+################################################################################
+##
+## © 2012, Sapient Corporation
+## All rights reserved
+##
+################################################################################
+
+
+error_service_conn = An error occurred.
+invalid_data = An error occurred.
+network_failure = Error launching application. Please check your Internet connection and try again later.
+invalidVideoUrl = An error occurred.
+invalid_app = You have installed the tablet app on you phone.
+adx_error = Error loading advertisement.
+sql_error = Error retrieving local data.

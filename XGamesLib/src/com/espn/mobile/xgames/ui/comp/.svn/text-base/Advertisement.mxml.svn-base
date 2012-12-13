@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Metadata>
+		[Event(name="errorLoadingAdvertisement", type="flash.events.Event")]
+		[Event(name="advertisementRendered", type="flash.events.Event")]
+		[Event(name="advertisementTrackingComplete", type="flash.events.Event")]//no pmd
+	</fx:Metadata>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.espn.mobile.xgames.events.AppErrorEvent;
+			import com.espn.mobile.xgames.events.InAppBrowserEvent;
+			
+			import spark.components.Image;
+			
+			private static const ERROR_LOADING_ADVERTISEMENT:String = "errorLoadingAdvertisement";
+			private static const ADVERTISEMENT_RENDERED:String = "advertisementRendered";
+			private static const TRACKING_COMPLETE:String = "advertisementTrackingComplete";
+			
+			private var _bannerWidth:Number;
+			private var _bannerHeight:Number;
+			private var _site:String = "m.tabapp.espn.globalx";//"m.app.espn.us.com.sc";
+			private var _zone:String = "lead";
+			
+			private var _adx:XML;
+			private var _clickURL:String;
+			private var _imageURL:String;
+			private var _trackingURL:String;
+			private var _openFullBrowser:String;
+			private var _isData:Boolean = false;
+			private var _scaleFactor:Number = 1;
+			public var _isMobile:Boolean = false;
+			
+			
+			/* private static const MODULE_CONTENT_PADDING:int = 8;
+			private static const MODULE_CONTENT_PADDING_PENCIL:int = 4; */
+			private var _padding:int = 8;
+			
+			private var _defaultText:String = "Advertisement";
+			private var _errorText:String = "Failed loading advertisement";
+			private var _orientation:String = "landscape";
+			
+			public function set scaleFactor(value:Number):void
+			{
+				_scaleFactor = value;
+			}
+			
+			/**
+			 * 
+			 * 
+			 */
+			public function set defaultText(value:String):void
+			{
+				_defaultText = value;
+			}
+			
+			/**
+			 * 
+			 * 
+			 */
+			public function set orientation(value:String):void
+			{
+				_orientation = value;
+			}
+			
+			/**
+			 * banner site 
+			 */
+			public function set site(value:String):void
+			{
+				_site = value;
+			}
+			
+			/**
+			 * 
+			 * 
+			 */
+			public function set errorText(value:String):void
+			{
+				_errorText = value;
+			}
+			
+			
+			/**
+			 * banner width without any scale
+			 * @parm	Number
+			 * @return	None 
+			 */
+			public function set bannerWidth(value:Number):void
+			{
+				_bannerWidth = value;
+			}
+			/**
+			 * banner height without any scale
+			 * @parm	Number
+			 * @return	None 
+			 */
+			public function set bannerHeight(value:Number):void
+			{
+				_bannerHeight = value;
+			}
+			/**
+			 * banner zone
+			 * @parm	Number
+			 * @default	lead
+			 * @return	None 
+			 */
+			public function set zone(value:String):void
+			{
+				_zone = value;
+			}
+			
+			private var _adOrder:Number = -1;
+			
+			public function set adOrder(value:Number):void
+			{
+				_adOrder = value;
+			}
+			
+			/**
+			 * genrate random order for advertisement
+			 * @parm	None
+			 * @return	Number 
+			 */
+			public function get adOrder():Number
+			{
+				return _adOrder;
+			}
+			
+			private function createAdOrder():void
+			{
+				_adOrder = Math.abs(Math.floor(Math.random()*9999999999));
+			}
+			
+			/**
+			 * overridden function
+			 * load the XML and hold the component initializtion - 
+			 */
+			override public function set initialized(value:Boolean):void
+			{
+				init();
+			} 
+			
+			/**
+			 * this function will construct the XML URL and make request to load it
+			 * @param None
+			 * @return	None 
+			 */
+			private function init():void
+			{
+				if(_adOrder == -1){createAdOrder()};
+				var strURL:String = "http://ad.doubleclick.net/adx/"+ _site +"/"+ _zone +";app=espn;dcmt=text/xml;sz="+_bannerWidth+"x"+_bannerHeight+";ord="+_adOrder;
+				var urlRequest:URLRequest = new URLRequest(strURL);
+				var urlLoader:URLLoader = new URLLoader();
+				
+				urlLoader.addEventListener(Event.COMPLETE, onADXLoadCompleteHandler);
+				urlLoader.addEventListener(IOErrorEvent.IO_ERROR, onADXIOErrorHandler);
+				urlLoader.load(urlRequest);
+				
+			}
+			
+			/**
+			 * Listener function for ADX load complete
+			 * @param	Event
+			 * @return	None 
+			 */
+			private function onADXLoadCompleteHandler(e:Event):void
+			{
+				try
+				{
+					_adx = new XML(e.target.data);	
+				}
+				catch(e:Error)
+				{
+					_isData = false;
+				}
+				parseADX();
+			}
+			/**
+			 * Listener function for IOError
+			 * @param	IOErrorEvent
+			 * @return	None 
+			 */
+			private function onADXIOErrorHandler(e:IOErrorEvent):void
+			{
+				trace(e)
+			}
+			
+			
+			/**
+			 * 
+			 * 
+			 */
+			private function getNode(xmlList:XMLList, searchKeyword:String, value:String):XML 
+			{ 
+				for each(var xml:XML in xmlList) 
+				{ 
+					if(xml.attribute(searchKeyword) == value)
+					{
+						return xml 
+					} 
+				}
+				return new XML(); 
+			}
+			
+			/**
+			 * parsing XML for required value and assign those values to private vars 
+			 * 
+			 */
+			private function parseADX():void
+			{
+				
+				try
+				{
+					var mobileCreative:XML = getNode(_adx.MobileCreative,"versions","1.3");
+					var adUnit:XML = getNode(mobileCreative.AdUnit,"orientation",_orientation);
+					var adComponent:XML = adUnit.AdComponent[0];
+					
+					_trackingURL = adComponent.@trackingURL;
+					_clickURL = adComponent.ClickThroughURL.@link;
+					_openFullBrowser = adComponent.ClickThroughURL.@openFullBrowser;
+					_imageURL = adComponent.CreativePath;
+					_isData = true;
+					
+				}
+				catch(e:Error)
+				{
+					_isData = false;
+					//dispatchEvent(new AppErrorEvent(AppErrorEvent.INVALID_DATA_FORMAT, null));
+				}
+				super.initialized = true;// let the component continue its flow
+				displayBanner()// add banner to display
+			}
+			
+			/**
+			 * create image object, set properities and add it to display list 
+			 * 
+			 */
+			private function displayBanner():void
+			{
+				if(_isData)
+				{
+					var bannerImage:Image = new Image();
+					bannerImage.width = _bannerWidth * _scaleFactor;
+					bannerImage.height = _bannerHeight * _scaleFactor;
+					bannerImage.source = _imageURL;
+					
+					if(_isMobile)
+					{
+						_padding = 0;
+					}
+					bannerImage.left= _padding * _scaleFactor;  
+					bannerImage.right= _padding * _scaleFactor;  
+					bannerImage.bottom= _padding * _scaleFactor;  
+					bannerImage.top= _padding * _scaleFactor;   
+					bannerImage.addEventListener(Event.COMPLETE, onBannerLoadComplete)
+					bannerImage.addEventListener(MouseEvent.CLICK, onBannerTapHandler)
+					this.addElement(bannerImage);	
+				}
+				else
+				{
+					dispatchEvent(new Event(ERROR_LOADING_ADVERTISEMENT));
+				}
+			}
+			
+			public function set isPencil(value:Boolean):void
+			{
+				if(true)
+				{
+					_padding = _padding/2;
+				}
+				
+			}
+			
+			/**
+			 * banner is loaded and displayed, time to call tracking API for advertisement 
+			 */
+			private function onBannerLoadComplete(e:Event):void
+			{
+				dispatchEvent(new Event(ADVERTISEMENT_RENDERED));
+				var urlRequest:URLRequest = new URLRequest(_trackingURL);
+				var urlLoader:URLLoader = new URLLoader();
+				urlLoader.addEventListener(Event.COMPLETE, onTrackingCompleteHandler);
+				urlLoader.load(urlRequest);
+				
+				if(_isMobile)
+				{
+					/* adStatus.horizontalCenter = 0;
+					adStatus.verticalCenter = 0;	 */
+					
+				}
+				else
+				{
+					/* adStatus.horizontalCenter = 1;
+					adStatus.verticalCenter = 1; */
+				}
+				
+			}
+			
+			private function onTrackingCompleteHandler(e:Event):void
+			{
+				dispatchEvent(new Event(TRACKING_COMPLETE));
+			}
+			
+			private function get openInBrowser():Boolean
+			{
+				return (_openFullBrowser.toLocaleLowerCase().indexOf("false") == -1) ? true : false;
+			}
+			/**
+			 *  
+			 */
+			private function onBannerTapHandler(e:MouseEvent):void
+			{
+				if(openInBrowser)
+				{
+					navigateToURL(new URLRequest(_clickURL));
+				}
+				else
+				{
+					// open in app browser to display link
+					var inAppBrowserEvt:InAppBrowserEvent = new InAppBrowserEvent(InAppBrowserEvent.OPEN_BROWSER);
+					inAppBrowserEvt.defaultTitle = "Advertisement";
+					inAppBrowserEvt.contentUrl = _clickURL;
+					dispatchEvent(inAppBrowserEvt);
+				}
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	<!--<s:Label text="Loading advertisement" id="adStatus" color="#FFFFFF"/>-->
+</s:Group>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/scm/XGames/!svn/ver/5535/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/managers
+END
+ErrorLanguageManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/scm/XGames/!svn/ver/5535/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/managers/ErrorLanguageManager.as
+END
+ILanguageManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/scm/XGames/!svn/ver/5535/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/managers/ILanguageManager.as
+END
+LanguageManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/scm/XGames/!svn/ver/5535/trunk/Development/Code/MobileApp/Code/MobileLib/trunk/XGamesMobileLib/src/com/espn/mobile/xgames/managers/LanguageManager.as
+END
